@@ -15,12 +15,16 @@ class Product extends Model
         'name',
         'slug',
         'images',
+        'short_description',
         'description',
         'price',
+        'compare_price',
         'is_active',
         'is_featured',
         'is_stocked',
-        'on_sale'
+        'on_sale',
+        'weight',
+        'weight_unit',
     ];
 
     protected $casts = [

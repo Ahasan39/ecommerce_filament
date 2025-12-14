@@ -69,6 +69,12 @@ class ProductResource extends Resource
                             ->dehydrated()
                             ->unique(Product::class, 'slug', ignoreRecord: true),
 
+                            // add below description field:
+                        TextInput::make('short_description')
+                            ->label('Short Description')
+                            ->maxLength(500)
+                            ->columnSpanFull(),
+
                         MarkdownEditor::make('description')
                             ->columnSpanFull()
                             ->fileAttachmentsDirectory('products')
@@ -88,8 +94,15 @@ class ProductResource extends Resource
                         TextInput::make('price')
                             ->numeric()
                             ->required()
+                            ->prefix('BDT'),
+                            
+                        TextInput::make('compare_price')
+                            ->numeric()
                             ->prefix('BDT')
+                            ->label('Compare Price')
+                            ->nullable(),
                     ]),
+
 
                     Section::make('Association')->schema([
                         Select::make('category_id')
@@ -119,7 +132,24 @@ class ProductResource extends Resource
 
                         Toggle::make('on_sale')
                             ->required()
+                    ]),
+
+                    Section::make('Weight Information')->schema([
+                        TextInput::make('weight')
+                            ->label('Weight')
+                            ->numeric()
+                            ->nullable(),
+
+                        Select::make('weight_unit')
+                            ->label('Weight Unit')
+                            ->options([
+                                'gm' => 'Gram (gm)',
+                                'kg' => 'Kilogram (kg)',
+                                'unit' => 'Unit (pcs)',
+                            ])
+                            ->nullable(),
                     ])
+
                 ])->columnSpan(1)
 
             ])->columns(3);

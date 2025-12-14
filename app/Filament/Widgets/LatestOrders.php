@@ -28,8 +28,14 @@ class LatestOrders extends BaseWidget
                     ->label('Order ID')
                     ->searchable(),
 
-                TextColumn::make('user.name')
-                    ->searchable(),
+                TextColumn::make('customer_name')
+                    ->label('Customer Name')
+                    ->getStateUsing(function ($record) {
+                        // যদি logged-in user থাকে তাহলে user.name দেখাও, না হলে address থেকে first + last name
+                        return $record->user->name ?? ($record->address->first_name . ' ' . $record->address->last_name);
+                    })
+                    ->searchable()
+                    ->sortable(), 
 
                 TextColumn::make('grand_total')
                     ->money('BDT'),
