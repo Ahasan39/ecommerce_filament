@@ -8,60 +8,65 @@
 <a href="https://github.com/laravel/framework"><img src="https://img.shields.io/badge/Laravel-10.x-red.svg" alt="Laravel Version"></a>
 <a href="https://github.com/filamentphp/filament"><img src="https://img.shields.io/badge/Filament-3.x-orange.svg" alt="Filament Version"></a>
 <a href="https://github.com/livewire/livewire"><img src="https://img.shields.io/badge/Livewire-3.x-pink.svg" alt="Livewire Version"></a>
+<a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind-3.x-blue.svg" alt="Tailwind Version"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
 </p>
 
 ## 📋 About This Project
 
-A modern, full-featured e-commerce platform built with Laravel 10, Filament 3, and Livewire 3. This application provides a complete online shopping experience with a powerful admin panel for managing products, orders, customers, and more.
+A modern, full-featured e-commerce platform built with **Laravel 10**, **Filament 3**, **Livewire 3**, and **Alpine.js**. This application provides a complete online shopping experience with a powerful admin panel for managing products, orders, customers, and more. The frontend is styled with **Tailwind CSS** and **Preline UI** for a premium, responsive look.
 
 ### ✨ Key Features
 
 #### 🎨 Frontend Features
-- **Product Catalog**: Browse products with advanced filtering and sorting
-- **Shopping Cart**: Real-time cart management with cookie-based persistence
-- **User Authentication**: Complete auth system (Login, Register, Password Reset)
-- **Guest Checkout**: Allow purchases without registration
-- **Order Tracking**: Track order status and history
-- **Product Search**: Fast and efficient product search
-- **Categories & Brands**: Organized product navigation
-- **Responsive Design**: Mobile-friendly interface
-- **Payment Integration**: Stripe payment gateway & Cash on Delivery
+- **Modern UI**: Built with Tailwind CSS and Preline UI components.
+- **Dynamic Home Page**: Features Hero slider, Category browser, Latest Products, and Customer Reviews sections.
+- **Product Catalog**: Browse products with advanced filtering (price, brand, category) and sorting.
+- **Product Details**: Comprehensive view with images, short description, description, and specifications.
+- **Shopping Cart**: Real-time cart management with cookie-based persistence (add, remove, update quantities).
+- **User Authentication**: Complete auth system (Login, Register, Password Reset) built with Livewire.
+- **Guest Checkout**: Allow purchases without registration.
+- **Order Tracking**: Users can track their order status and history.
+- **Product Search**: Fast and efficient product search functionality.
+- **Responsive Design**: Fully mobile-responsive interface optimized for all devices.
+- **Payment Integration**: Secure payments via **Stripe** and **Cash on Delivery**.
 
 #### 🔧 Admin Panel (Filament)
-- **Dashboard**: Overview of sales, orders, and statistics
-- **Product Management**: CRUD operations with image uploads
-- **Order Management**: Process orders, update status, generate invoices
-- **Customer Management**: View and manage customer accounts
-- **Category & Brand Management**: Organize products efficiently
-- **Page Management**: Create and manage custom pages
-- **Invoice Generation**: PDF invoice creation and download
-- **Courier Integration**: Steadfast Courier API integration
-- **Order Tracking**: Tracking code management
-- **Weight Management**: Product weight and shipping calculations
+- **Dashboard**: Comprehensive overview of sales, orders, and key statistics.
+- **Product Management**: 
+  - CRUD operations
+  - Image uploads (multiple)
+  - Short & long descriptions
+  - Price & compare price
+  - Stock management
+  - Weight management (for shipping)
+- **Order Management**: Process orders, update status (New, Processing, Shipped, Delivered), and generate invoices.
+- **Customer Management**: View and manage customer accounts.
+- **Category & Brand Management**: Organize products efficiently with images.
+- **Page Management**: Create and manage custom pages.
+- **Invoice Generation**: PDF invoice creation and download (using DomPDF).
+- **Courier Integration**: **Steadfast Courier** API integration for automated shipping.
+- **Discount System**: Apply discounts to orders.
 
 #### 🚀 Advanced Features
-- **Livewire Components**: Dynamic, reactive UI without page reloads
-- **Email Notifications**: Order confirmation emails
-- **Sitemap Generation**: Automated sitemap for SEO
-- **Admin Middleware**: Secure admin access control
-- **Cache Control**: Optimized performance
-- **Guest Orders**: Support for non-registered users
-- **Delivery Charge**: Automatic delivery fee calculation
-- **Discount System**: Apply discounts to orders
-- **Compare Prices**: Show original vs. sale prices
-- **Product Weights**: Track product weights for shipping
+- **Livewire Components**: Dynamic, reactive UI without page reloads (SPA-like feel).
+- **Email Notifications**: Automated order confirmation emails.
+- **Sitemap Generation**: Automated sitemap generation for better SEO.
+- **Admin Middleware**: Secure admin access control.
+- **Performance**: Optimized with caching and lazy loading.
+- **Delivery Charge**: Automatic delivery fee calculation based on logic.
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Laravel 10.x
-- **Admin Panel**: Filament 3.x
-- **Frontend**: Livewire 3.x
+- **Framework**: [Laravel 10.x](https://laravel.com)
+- **Admin Panel**: [Filament 3.x](https://filamentphp.com)
+- **Frontend**: [Livewire 3.x](https://livewire.laravel.com)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com) & [Preline UI](https://preline.co)
+- **Interactivity**: [Alpine.js](https://alpinejs.dev)
 - **Database**: MySQL
 - **Payment**: Stripe API
 - **PDF Generation**: DomPDF
 - **Courier**: Steadfast Courier API
-- **Styling**: Tailwind CSS
 - **Icons**: Heroicons
 
 ## 📦 Installation
@@ -97,6 +102,7 @@ php artisan key:generate
 ```
 
 5. **Configure your `.env` file**
+Update database and third-party service credentials:
 ```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -109,7 +115,7 @@ DB_PASSWORD=your_database_password
 STRIPE_KEY=your_stripe_publishable_key
 STRIPE_SECRET=your_stripe_secret_key
 
-# Mail Configuration
+# Mail Configuration (Required for notifications)
 MAIL_MAILER=smtp
 MAIL_HOST=your_mail_host
 MAIL_PORT=587
@@ -130,7 +136,7 @@ STEADFAST_BASE_URL=https://portal.steadfast.com.bd/api/v1
 php artisan migrate
 ```
 
-7. **Seed the database (optional)**
+7. **Seed the database (Optional)**
 ```bash
 php artisan db:seed
 ```
@@ -156,16 +162,17 @@ Visit `http://localhost:8000` to view the application.
 
 ## 👤 Admin Access
 
-To access the admin panel, you need to set up an admin user. Update the `canAccessPanel` method in `app/Models/User.php`:
+To access the admin panel, you need to set up an admin user. 
+You can modify the `canAccessPanel` method in `app/Models/User.php` to allow specific emails, or create an admin user via tinker or seeder.
 
+Example `User.php` modification:
 ```php
 public function canAccessPanel(Panel $panel): bool
 {
-    return $this->email == 'your-admin@email.com';
+    // return $this->email == 'admin@example.com';
+    return true; // CAUTION: Allows everyone in local dev
 }
 ```
-
-Or create an admin user and set `is_admin = 1` in the database.
 
 Access admin panel at: `http://localhost:8000/admin`
 
@@ -174,124 +181,45 @@ Access admin panel at: `http://localhost:8000/admin`
 ```
 ecommerce_filament/
 ├── app/
-│   ├── Console/Commands/      # Custom artisan commands
-│   ├── Filament/              # Filament admin resources
-│   │   ├── Resources/         # CRUD resources
-│   │   └── Widgets/           # Dashboard widgets
-│   ├── Helpers/               # Helper classes (CartManagement)
-│   ├── Http/
-│   │   ├── Controllers/       # Controllers
-│   │   └── Middleware/        # Custom middleware
-│   ├── Livewire/              # Livewire components
-│   ├── Mail/                  # Mail classes
-│   └── Models/                # Eloquent models
+│   ├── Filament/              # Filament admin resources (Product, Order, etc.)
+│   ├── Helpers/               # Helper classes (e.g., CartManagement)
+│   ├── Livewire/              # Livewire components (Frontend logic)
+│   ├── Models/                # Eloquent models
+│   └── Mail/                  # Mail classes
 ├── database/
 │   ├── migrations/            # Database migrations
 │   └── seeders/               # Database seeders
 ├── public/
-│   ├── front-assets/          # Frontend assets
-│   └── storage/               # Public storage
+│   ├── front-assets/          # Static frontend assets (images)
+│   └── storage/               # Symlinked storage
 ├── resources/
 │   ├── views/
-│   │   ├── livewire/          # Livewire views
-│   │   ├── invoices/          # Invoice templates
+│   │   ├── livewire/          # Blade templates for Livewire components
+│   │   ├── invoices/          # PDF Invoice templates
 │   │   └── mail/              # Email templates
-│   ├── css/                   # CSS files
-│   └── js/                    # JavaScript files
-└── routes/
-    └── web.php                # Web routes
+├── routes/
+│   └── web.php                # Web routes
+└── tailwind.config.js         # Tailwind configuration
 ```
 
 ## 🔑 Key Components
 
-### Models
-- **User**: Customer and admin users
-- **Product**: Product catalog
-- **Category**: Product categories
-- **Brand**: Product brands
-- **Order**: Customer orders
-- **OrderItem**: Order line items
-- **Address**: Shipping addresses
-- **Page**: Custom pages
+### Livewire Pages (Frontend)
+- **HomePage**: Layout with Hero, Brand, Category, Product, and Review sections.
+- **ProductsPage**: Grid view of products with sidebar filters.
+- **ProductDetailPage**: Individual product view.
+- **CartPage**: Cart management interface.
+- **CheckoutPage**: Order placement and payment.
+- **MyOrdersPage**: User order history.
 
-### Livewire Components
-- **HomePage**: Main landing page
-- **ProductsPage**: Product listing with filters
-- **ProductDetailPage**: Single product view
-- **CartPage**: Shopping cart
-- **CheckoutPage**: Checkout process
-- **MyOrdersPage**: Customer order history
-- **MyOrderDetailPage**: Order details
-- **Auth Components**: Login, Register, Password Reset
-
-### Filament Resources
-- **ProductResource**: Manage products
-- **OrderResource**: Manage orders
-- **CategoryResource**: Manage categories
-- **BrandResource**: Manage brands
-- **UserResource**: Manage users
-- **PageResource**: Manage custom pages
-
-## 🎯 Features in Detail
-
-### Cart Management
-- Add/remove items
-- Update quantities
-- Cookie-based persistence
-- Real-time total calculation
-
-### Order Processing
-1. Guest or authenticated checkout
-2. Shipping information collection
-3. Payment method selection (Stripe/COD)
-4. Order confirmation email
-5. Admin order management
-6. Invoice generation
-7. Courier integration
-
-### Admin Features
-- Dashboard with statistics
-- Order status management
-- Invoice generation (View/Download PDF)
-- Steadfast courier integration
-- Product weight tracking
-- Delivery charge calculation
-- Discount management
-- Customer information
-
-## 🔐 Security Features
-- CSRF protection
-- XSS prevention
-- SQL injection protection
-- Admin middleware
-- Password hashing
-- Secure payment processing
-
-## 📧 Email Notifications
-- Order confirmation
-- Password reset
-- Custom email templates
-
-## 🌐 SEO Features
-- Automated sitemap generation
-- SEO-friendly URLs
-- Meta tags support
-- Robots.txt configuration
-
-## 🚀 Performance Optimization
-- Cache control middleware
-- Lazy loading
-- Image optimization
-- Database query optimization
-- Asset minification
-
-## 📱 Responsive Design
-- Mobile-first approach
-- Tablet-friendly
-- Desktop optimized
-- Touch-friendly interface
+### Filament Resources (Admin)
+- **ProductResource**: Manage catalog.
+- **OrderResource**: Manage orders & shipments.
+- **CategoryResource** / **BrandResource**: Taxonomies.
+- **UserResource**: Customer management.
 
 ## 🧪 Testing
+
 ```bash
 php artisan test
 ```
@@ -299,18 +227,15 @@ php artisan test
 ## 📝 Scheduled Tasks
 
 The application includes automated sitemap generation:
-
 ```bash
 # Run manually
 php artisan sitemap:generate
-
-# Scheduled daily at 2 AM (configured in app/Console/Kernel.php)
+# Scheduled daily at 2 AM
 ```
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
+Contributions are welcome!
 1. Fork the project
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
@@ -331,26 +256,16 @@ This project is open-sourced software licensed under the [MIT license](https://o
 - [Laravel](https://laravel.com)
 - [Filament](https://filamentphp.com)
 - [Livewire](https://livewire.laravel.com)
+- [Preline UI](https://preline.co)
 - [Tailwind CSS](https://tailwindcss.com)
-- [Stripe](https://stripe.com)
-
-## 📞 Support
-
-For support, email your-email@example.com or create an issue in the repository.
 
 ## 🗺️ Roadmap
 
-- [ ] Multi-language support
+- [ ] Dynamic Product Reviews & Ratings (Database driven)
 - [ ] Wishlist functionality
-- [ ] Product reviews and ratings
+- [ ] Multi-language support
 - [ ] Advanced analytics dashboard
 - [ ] Social media integration
-- [ ] Multiple payment gateways
-- [ ] Inventory management
+- [ ] Inventory management (Advanced variants)
 - [ ] Coupon system
 - [ ] Newsletter subscription
-- [ ] Live chat support
-
----
-
-<p align="center">Made with ❤️ using Laravel & Filament</p>
